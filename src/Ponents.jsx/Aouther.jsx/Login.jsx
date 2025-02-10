@@ -18,14 +18,14 @@ const Login = () => {
     // setpassword("");
     try {
       const res = await axios.post(
-        // "http://localhost:3000/api/users/login",
+        "http://localhost:3000/api/users/login",
         { email, password },
         { withCredentials: true }
       );
       if (res.data.success) {
         alert(res.data.message);
         setTimeout(() => {
-          navigate("/user");
+          navigate("/");
         }, 2000);
       }
     } catch (error) {

@@ -7,7 +7,6 @@ const Register = () => {
     username: "",
     email: "",
     password: "",
-    role: "employee",
   });
 
   const [loading, setLoading] = useState(false);
@@ -31,10 +30,11 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        // "http://your-backend-url/register",
-        formData
+        "http://localhost:3000/api/users/register",
+        formData,
+        { withCredentials: true }
       );
-      if (response.status === 200) {
+      if (response.data.success) {
         setSuccess("Registration successful! Redirecting...");
         setTimeout(() => {
           navigate("/login");
@@ -87,15 +87,7 @@ const Register = () => {
             className="border-red-600 border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full mt-4"
             placeholder="Enter your password"
           />
-          <select
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            className="border-red-600 border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full mt-4"
-          >
-            <option value="employee">Employee</option>
-            <option value="admin">Admin</option>
-          </select>
+
           <button
             type="submit"
             className="bg-red-600 hover:bg-red-500 font-bold rounded-full px-4 py-3 text-lg mt-7 w-full"
