@@ -4,13 +4,15 @@ import "./App.css";
 
 import Login from "./Ponents.jsx/Aouther.jsx/Login";
 import Nav from "./Ponents.jsx/Navbar.jsx/Nav";
-import Employdashboard from "./Ponents.jsx/Employdashboard";
-import Admindashboard from "./Ponents.jsx/Admindashboard";
+// import Employdashboard from "./Ponents.jsx/Employdashboard";
+
 import Register from "./Ponents.jsx/Aouther.jsx/Register";
 import ProtectedRoute from "./Auth/ProtectedRoute";
 import PublicRoute from "./Auth/PublicRoute";
 import Unauthorized from "./Auth/Unauthorized";
 import AdminProtectedRoute from "./Auth/AdminProtectedRoute";
+import Admindash from "./Ponents.jsx/Admindash";
+import Employ from "./Ponents.jsx/Employ";
 
 const App = () => {
   return (
@@ -19,43 +21,36 @@ const App = () => {
         <Route
           path="/"
           element={
-            <ProtectedRoute>
-              <Nav />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Employ />
+
+            // </ProtectedRoute>
           }
-        >
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Employdashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <AdminProtectedRoute>
-                <Admindashboard />
-              </AdminProtectedRoute>
-            }
-          />
-        </Route>
+        />
+        <Route
+          path="/admin"
+          element={
+            // <AdminProtectedRoute>
+            <Admindash />
+            // <Admindashboard />
+            // </AdminProtectedRoute>
+          }
+        />
 
         <Route
           path="/login"
           element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
+            // <PublicRoute>
+            <Login />
+            // </PublicRoute>
           }
         />
         <Route
           path="/register"
           element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
+            // <PublicRoute>
+            <Register />
+            // </PublicRoute>
           }
         />
 

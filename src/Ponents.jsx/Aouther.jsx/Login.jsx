@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
     // setpassword("");
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/users/login",
+        "http://localhost:7000/api/users/login",
         { email, password },
         { withCredentials: true }
       );
@@ -64,6 +64,10 @@ const Login = () => {
           >
             login
           </button>
+
+          <Link to="/register" className="mt-7 text-red-600 hover:underline">
+            Don't have an account? Register here
+          </Link>
         </form>
       </div>
     </div>

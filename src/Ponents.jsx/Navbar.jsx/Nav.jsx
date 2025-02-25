@@ -4,7 +4,7 @@ import axios from "axios";
 import { Outlet } from "react-router-dom";
 import { baseURL } from "../../Utils.jsx/utils";
 
-const Nav = () => {
+const Nav = ({ name }) => {
   const navigate = useNavigate();
 
   const handleLogoutClick = async () => {
@@ -27,21 +27,20 @@ const Nav = () => {
   };
 
   return (
-    <>
-      <div className="flex items-center justify-between px-4">
-        <h1 className="text-xl">
-          HELLO <br />
-          <span className="text-2xl font-semibold ">EMPLOY</span>
-        </h1>
-        <button
-          className="text-lg font-medium bg-red-700 px-4 py-2 rounded-xl"
-          onClick={handleLogoutClick}
-        >
-          Log Out
-        </button>
-      </div>
-      <Outlet />
-    </>
+    <nav className="bg-gray-900 text-white py-4 px-6 flex justify-between items-center shadow-lg rounded-lg">
+      <h1 className="text-xl font-semibold">
+        HELLO MISTER <span className="text-blue-400">{name}</span>
+      </h1>
+      <h1 className="text-2xl font-bold text-center tracking-wide">
+        WELCOME TO YOUR DASHBOARD
+      </h1>
+      <button
+        className="bg-red-600 hover:bg-red-700 transition duration-300 text-white px-5 py-2 rounded-lg shadow-md font-medium"
+        onClick={handleLogoutClick}
+      >
+        Log Out
+      </button>
+    </nav>
   );
 };
 
