@@ -44,7 +44,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-transparent">
+    <div className="flex items-center justify-center min-h-screen  bg-gray-900">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center justify-center w-80 bg-transparent text-white border-2 border-red-600 p-8 rounded-lg"
@@ -55,7 +55,7 @@ const Register = () => {
           value={formData.username}
           onChange={handleChange}
           required
-          className="border-white border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full text-white"
+          className="border-red-600 border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full text-white"
           placeholder="Enter your username"
         />
         <input
@@ -64,7 +64,7 @@ const Register = () => {
           value={formData.email}
           onChange={handleChange}
           required
-          className="border-white border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full mt-4 text-white"
+          className="border-red-600 border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full mt-4 text-white"
           placeholder="Enter your email"
         />
         <input
@@ -73,7 +73,7 @@ const Register = () => {
           value={formData.password}
           onChange={handleChange}
           required
-          className="border-white border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full mt-4 text-white"
+          className="border-red-600 border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full mt-4 text-white"
           placeholder="Enter your password"
         />
         <button

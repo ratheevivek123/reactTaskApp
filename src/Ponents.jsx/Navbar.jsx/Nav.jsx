@@ -1,28 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Outlet } from "react-router-dom";
 import { baseURL } from "../../Utils.jsx/utils";
 
 const Nav = ({ name }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleLogoutClick = async () => {
+    setLoading(true);
     try {
       const res = await axios.get(`${baseURL}/api/users/logout`, {
         withCredentials: true,
       });
 
       if (res.data.success) {
-        alert(res.data.message);
         setTimeout(() => {
+          setLoading(false);
           navigate("/login");
         }, 2000);
       } else {
         alert(res.data.message);
+        setLoading(false);
       }
     } catch (error) {
-      alert(error.response.data.message);
+      alert(error.response?.data?.message || "Logout failed");
+      setLoading(false);
     }
   };
 
@@ -35,10 +38,15 @@ const Nav = ({ name }) => {
         WELCOME TO YOUR DASHBOARD
       </h1>
       <button
-        className="bg-red-600 hover:bg-red-700 transition duration-300 text-white px-5 py-2 rounded-lg shadow-md font-medium"
+        className="bg-red-600 hover:bg-red-700 transition duration-300 text-white px-5 py-2 rounded-lg shadow-md font-medium flex items-center justify-center"
         onClick={handleLogoutClick}
+        disabled={loading}
       >
-        Log Out
+        {loading ? (
+          <div className="w-6 h-6 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+        ) : (
+          "Log Out"
+        )}
       </button>
     </nav>
   );
