@@ -117,6 +117,7 @@ import Taskedit from "./Navbar.jsx/Taskmanager.jsx/Taskedit";
 // import axios from "axios";
 // import { baseURL } from "../Utils.jsx/utils";
 // import Taskedit from "./Navbar.jsx/Taskmanager.jsx/Taskedit";
+// Update this with your backend URL
 
 const Admindash = () => {
   const [users, setUsers] = useState([]);
@@ -163,6 +164,18 @@ const Admindash = () => {
       fetchUserTasks(selectedUser._id); // Refresh task list after reassignment
     } catch (error) {
       console.error("Error reassigning task:", error);
+    }
+  };
+
+  // Delete a task
+  const deleteTask = async (taskId) => {
+    try {
+      await axios.delete(`${baseURL}/api/tasks/${taskId}`, {
+        withCredentials: true,
+      });
+      fetchUserTasks(selectedUser._id); // Refresh task list after deletion
+    } catch (error) {
+      console.error("Error deleting task:", error);
     }
   };
 
@@ -214,14 +227,22 @@ const Admindash = () => {
                     <strong>Status:</strong> {task.status}
                   </p>
                 </div>
-                {task.status === "Failed" && (
+                <div className="flex gap-2">
+                  {task.status === "Failed" && (
+                    <button
+                      onClick={() => reassignTask(task._id)}
+                      className="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300"
+                    >
+                      Reassign Task
+                    </button>
+                  )}
                   <button
-                    onClick={() => reassignTask(task._id)}
-                    className="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300"
+                    onClick={() => deleteTask(task._id)}
+                    className="px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 transition duration-300"
                   >
-                    Reassign Task
+                    Delete Task
                   </button>
-                )}
+                </div>
               </div>
             ))
           )}

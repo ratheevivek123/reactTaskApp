@@ -124,6 +124,7 @@ import Nav from "./Navbar.jsx/Nav";
 // };
 
 // export default Employ;
+
 const Employ = () => {
   const [tasks, setTasks] = useState([]);
   const [user, setUser] = useState({ username: "", email: "" });
@@ -159,7 +160,7 @@ const Employ = () => {
   const updateTaskStatus = async (taskId, status) => {
     try {
       await axios.patch(
-        `${baseURL}/api/tasks/${taskId}/review`,
+        `  ${baseURL}/api/tasks/${taskId}/review`,
         { status },
         { withCredentials: true }
       );
@@ -204,46 +205,58 @@ const Employ = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        {tasks.map((task) => (
-          <div key={task._id} className="p-5 rounded-lg bg-gray-800 shadow-lg">
-            <h3 className="text-2xl font-bold text-center uppercase">
-              {task.title}
-            </h3>
-            <p className="mt-2 text-sm font-semibold">
-              Last Date: {new Date(task.date).toDateString()}
-            </p>
-            <p className="text-gray-300 mt-2">
-              Description: {task.description}
-            </p>
+        {tasks.map((task) => {
+          let borderColor = "border-gray-700"; // Default border
 
-            <div className="mt-4 flex justify-center space-x-2">
-              {task.status === "New" && (
-                <button
-                  onClick={() => updateTaskStatus(task._id, "Accepted")}
-                  className="px-3 py-1 bg-yellow-500 rounded-lg hover:bg-yellow-600 transition duration-300"
-                >
-                  Accept
-                </button>
-              )}
-              {task.status === "Accepted" && (
-                <>
+          if (task.status === "Reassigned") borderColor = "border-blue-500"; // Highlight reassigned tasks
+          if (task.status === "Failed") borderColor = "border-red-500"; // Highlight failed tasks
+          if (task.status === "Completed") borderColor = "border-green-500"; // Highlight completed tasks
+
+          return (
+            <div
+              key={task._id}
+              className={`p-5 rounded-lg bg-gray-800 shadow-lg border-2 ${borderColor}`}
+            >
+              <h3 className="text-2xl font-bold text-center uppercase">
+                {task.title}
+              </h3>
+              <p className="mt-2 text-sm font-semibold">
+                Last Date: {new Date(task.date).toDateString()}
+              </p>
+              <p className="text-gray-300 mt-2">
+                Description: {task.description}
+              </p>
+
+              <div className="mt-4 flex justify-center space-x-2">
+                {(task.status === "New" || task.status === "Reassigned") && (
                   <button
-                    onClick={() => updateTaskStatus(task._id, "Completed")}
-                    className="px-3 py-1 bg-green-500 rounded-lg hover:bg-green-600 transition duration-300"
+                    onClick={() => updateTaskStatus(task._id, "Accepted")}
+                    className="px-3 py-1 bg-yellow-500 rounded-lg hover:bg-yellow-600 transition duration-300"
                   >
-                    Mark as Completed
+                    Accept
                   </button>
-                  <button
-                    onClick={() => updateTaskStatus(task._id, "Failed")}
-                    className="px-3 py-1 bg-red-600 rounded-lg hover:bg-red-700 transition duration-300"
-                  >
-                    Mark as Failed
-                  </button>
-                </>
-              )}
+                )}
+                {(task.status === "Accepted" ||
+                  task.status === "Reassigned") && (
+                  <>
+                    <button
+                      onClick={() => updateTaskStatus(task._id, "Completed")}
+                      className="px-3 py-1 bg-green-500 rounded-lg hover:bg-green-600 transition duration-300"
+                    >
+                      Mark as Completed
+                    </button>
+                    <button
+                      onClick={() => updateTaskStatus(task._id, "Failed")}
+                      className="px-3 py-1 bg-red-600 rounded-lg hover:bg-red-700 transition duration-300"
+                    >
+                      Mark as Failed
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
