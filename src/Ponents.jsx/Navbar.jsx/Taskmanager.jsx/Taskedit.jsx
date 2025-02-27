@@ -42,13 +42,13 @@ const Taskedit = () => {
   };
 
   return (
-    <div className="p-5 bg-[#1C1C1C] rounded mt-8">
+    <div className="p-5 bg-[#1C1C1C] rounded mt-8 shadow-[0px_0px_15px_3px_rgba(255,255,255,0.3)]">
       <form
         className="flex flex-wrap w-full items-start justify-between p-10 mt-14"
         onSubmit={handleSubmit}
       >
         <div className="w-1/2">
-          <h3 className="text-sm text-gray-400 mb-0.5">TITLE</h3>
+          <h3 className="text-sm text-gray-400 m-0.5">TITLE</h3>
           <input
             type="text"
             name="title"

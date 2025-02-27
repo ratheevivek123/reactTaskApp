@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, resolvePath } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../../Utils.jsx/utils";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
+    role: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -51,12 +52,12 @@ const Register = () => {
       >
         <input
           type="text"
-          name="username"
-          value={formData.username}
+          name="name"
+          value={formData.name}
           onChange={handleChange}
           required
           className="border-red-600 border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full text-white"
-          placeholder="Enter your username"
+          placeholder="Enter your name"
         />
         <input
           type="email"
@@ -76,6 +77,23 @@ const Register = () => {
           className="border-red-600 border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full mt-4 text-white"
           placeholder="Enter your password"
         />
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          required
+          className="border-red-600 border-2 outline-none rounded-full px-5 py-3 text-lg bg-transparent w-full mt-4 text-grey-600"
+        >
+          <option className="text-black" value="" disabled>
+            Select your role
+          </option>
+          <option className="text-black" value="admin">
+            Admin
+          </option>
+          <option className="text-black" value="user">
+            User
+          </option>
+        </select>
         <button
           type="submit"
           className="bg-red-600 hover:bg-red-500 font-bold rounded-full px-4 py-3 text-lg mt-7 w-full"
